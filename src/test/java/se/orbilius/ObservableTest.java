@@ -1,5 +1,7 @@
 package se.orbilius;
 
+import java.util.logging.Logger;
+
 import org.junit.Test;
 
 import rx.Observable;
@@ -9,6 +11,8 @@ import rx.schedulers.Schedulers;
 
 public class ObservableTest {
 
+	Logger logger = Logger.getLogger("sadf");
+	
 	@Test
 	public void mapTarEnFunktionSomReturnerarVärden() {
 		Observable.just(1, 2, 3, 4).map(integer -> plusOne(integer))
@@ -120,6 +124,54 @@ public class ObservableTest {
 						+ throwable.getMessage()));
 	}
 	
+	
+	@Test
+	public void doOnError() throws Exception{
+		Observable<String> errorObservable = Observable
+				.create(new OnSubscribe<String>() {
+
+					@Override
+					public void call(Subscriber<? super String> t1) {
+						t1.onNext("1");
+						t1.onNext("2");
+						t1.onError(new RuntimeException(
+								"Det här gick inte så bra"));
+						t1.onNext("3");
+					}
+				});
+		
+		errorObservable.doOnError(e -> {
+			logger.info(Thread.currentThread().getName() + " Det här är doOnError");
+			throw new IllegalArgumentException("Ajajaj");
+		})
+		.subscribeOn(Schedulers.computation())
+		.subscribe(new Subscriber<String>(){
+
+			@Override
+			public void onCompleted() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable e) {
+				logger.info(Thread.currentThread().getName() + " Det här är onError: " + e.getMessage());
+				System.out.println("onError");
+				
+			}
+
+			@Override
+			public void onNext(String t) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+//		Thread.sleep(10000);
+
+		
+	}
 	
 
 	private Integer plusOne(Integer integer) {
