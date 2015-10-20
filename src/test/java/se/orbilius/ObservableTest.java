@@ -15,26 +15,26 @@ public class ObservableTest {
 
     @Test
     public void mapTarEnFunktionSomReturnerarVärden() {
-        Observable.just(1, 2, 3, 4).map(integer -> integer + 1)
+        Observable.just(1, 2, 3, 4)
+                .map(integer -> timesTenSync(integer))
                 .subscribe(integer -> System.out.println(integer));
     }
 
     @Test
-    public void flatMapTarEnFunktionSomReturnerarEnNyObservable() {
-        Observable
-                .just(1, 2, 3, 4)
-                .flatMap(
-                        integer -> timesTenAsync(integer)
-                                .doOnNext(
-                                        integer2 -> System.out
-                                                .println("Det här är alltså också en observable")))
-                .subscribe(integer -> System.out.println(integer));
+    public void flatMapTarEnFunktionSomReturnerarEnNyObservableManKanAlltsåGåFrånEnTillMånga() {
+        Observable.just(1, 2, 3, 4)
+                .flatMap(integer -> timesTenAsync(integer)
+                        .doOnNext(integer2 -> System.out.println("Det här är alltså också en observable - resultatobservablen emittar alla världen.")))
+                .subscribe(integer -> System.out.println("Värde från reultatobservablen: " + integer));
+    }
+
+    private int timesTenSync(Integer integer) {
+        return integer * 10;
     }
 
     private Observable<Integer> timesTenAsync(Integer integer) {
-        return Observable.just(integer * 10);
+        return Observable.just(integer * 10, integer * 100);
     }
-
 
     @Test
     public void omManInteAngerEnTrådpoolKörsAlltSynkront() {
