@@ -1,17 +1,21 @@
 package se.orbilius;
 
 import org.junit.Test;
-
 import rx.Observable;
 import rx.Observable.OnSubscribe;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+
 public class ObservableTest {
 
 	@Test
 	public void mapTarEnFunktionSomReturnerarVärden() {
-		Observable.just(1, 2, 3, 4).map(integer -> plusOne(integer))
+		Observable.just(1, 2, 3, 4).map(integer -> integer + 1)
 				.subscribe(integer -> System.out.println(integer));
 	}
 
@@ -26,6 +30,11 @@ public class ObservableTest {
 												.println("Det här är alltså också en observable")))
 				.subscribe(integer -> System.out.println(integer));
 	}
+
+	private Observable<Integer> timesTenAsync(Integer integer) {
+		return Observable.just(integer * 10);
+	}
+
 
 	@Test
 	public void omManInteAngerEnTrådpoolKörsAlltSynkront() {
@@ -113,21 +122,176 @@ public class ObservableTest {
 				});
 
 		errorObservable
-		.onErrorResumeNext(Observable.<String>empty())
-		.subscribe(
-				string -> System.out.println(string),
-				throwable -> System.out.println("Kastade: "
-						+ throwable.getMessage()));
+				.onErrorResumeNext(Observable.<String>empty())
+				.subscribe(
+						string -> System.out.println(string),
+						throwable -> System.out.println("Kastade: "
+								+ throwable.getMessage()));
+	}
+
+	@Test
+	public void medMergeWithDelayKanManIgnorerarFel() throws Exception {
+
+		Observable<String> noErrorObservable = Observable.create(new OnSubscribe<String>() {
+			@Override
+			public void call(Subscriber<? super String> subscriber) {
+				subscriber.onNext("1");
+			}
+		});
+
+		Observable<String> errorObservable = Observable.create(new OnSubscribe<String>() {
+			@Override
+			public void call(Subscriber<? super String> subscriber) {
+				subscriber.onError(new RuntimeException("Det blev fel"));
+			}
+		});
+
+		Observable<String> noErrorObservable2 = Observable.create(new OnSubscribe<String>() {
+			@Override
+			public void call(Subscriber<? super String> subscriber) {
+				subscriber.onNext("2");
+			}
+		});
+		Observable.mergeDelayError(noErrorObservable, errorObservable, noErrorObservable2)
+				.subscribe(
+						string -> System.out.println("Merged: " + string),
+						throwable -> System.out.println("Fick ett fel: " + throwable.getMessage())
+				);
+	}
+/*
+	@Test
+	public void tvåSubscribesPåverkarInteVarandra() throws InterruptedException {
+		List<Integer> firstEntries = new ArrayList<>();
+		List<Integer> secondEntries = new ArrayList<>();
+
+		Observable<Integer> intObservable = Observable.create(new OnSubscribe<Integer>() {
+			private int counter = 0;
+
+			@Override
+			public void call(Subscriber<? super Integer> subscriber) {
+				subscriber.onNext(counter++);
+			}
+		}).subscribeOn(Schedulers.io());
+
+		intObservable.subscribe(new Subscriber<Integer>() {
+			@Override
+			public void onCompleted() {
+				
+			}
+
+			@Override
+			public void onError(Throwable e) {
+
+			}
+
+			@Override
+			public void onNext(Integer integer) {
+				firstEntries.add(integer);
+			}
+		})
+		);
+
+		intObservable.subscribe(
+				intg -> secondEntries.add(intg)
+		);
+
+		Thread.sleep(1000);
+		assertTrue(firstEntries.get(0) == 0 && firstEntries.size() == 1);
+		assertTrue(secondEntries.get(0) == 1 && secondEntries.size() == 1);
+	}
+*/
+	@Test
+	public void omManCacharFårTvåSubscribesSammaItemsMenDerasEventhanterareÄrSeparata() throws InterruptedException {
+		List<Integer> firstEntries = new ArrayList<>();
+		List<Integer> secondEntries = new ArrayList<>();
+
+		Observable<Integer> intObservable =
+				Observable
+						.create(new OnSubscribe<Integer>() {
+							private int counter = 0;
+
+							@Override
+							public void call(Subscriber<? super Integer> subscriber) {
+								subscriber.onNext(counter++);
+							}
+						})
+						.cache()
+						.subscribeOn(Schedulers.io());
+
+		intObservable.subscribe(
+				intg -> firstEntries.add(intg)
+		);
+
+		intObservable.subscribe(
+				intg -> secondEntries.add(intg)
+		);
+
+		Thread.sleep(2000);
+		assertTrue(firstEntries.get(0) == 0 && firstEntries.size() == 1);
+		assertTrue(secondEntries.get(0) == 0 && secondEntries.size() == 1);
 	}
 	
 	
+	@Test
+	public void subscribearToBlocking() {
 
-	private Integer plusOne(Integer integer) {
-		return integer + 1;
+		Observable<String> just = Observable.just("1");
+		just.subscribe(new Subscriber<String>() {
+			@Override
+			public void onCompleted() {
+				System.out.println("DONE!");
+			}
+
+			@Override
+			public void onError(Throwable e) {
+
+			}
+
+			@Override
+			public void onNext(String s) {
+
+			}
+		});
+
+		Observable<String> just2 = Observable.just("2");
+		just2
+				.doOnCompleted(() -> System.out.println("DONE 2"))
+				//.doOn
+				.toBlocking().single();
+
 	}
 
-	private Observable<Integer> timesTenAsync(Integer integer) {
-		return Observable.just(integer * 10);
+	@Test
+	public void hurFunkarDoOnError(){
+
+		Observable<String> obs = Observable.create(new OnSubscribe<String>() {
+			@Override
+			public void call(Subscriber<? super String> subscriber) {
+				subscriber.onNext("Sträng");
+				subscriber.onCompleted();
+
+
+			}
+		});
+
+		obs.subscribe(new Subscriber<String>() {
+			@Override
+			public void onCompleted() {
+				
+			}
+
+			@Override
+			public void onError(Throwable e) {
+
+			}
+
+			@Override
+			public void onNext(String s) {
+
+				System.out.println("JAG FIXK " + s);
+			}
+		});
+
 	}
 
 	private void printDelayed(int millis, String message) {
