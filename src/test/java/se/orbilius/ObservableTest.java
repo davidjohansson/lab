@@ -125,7 +125,7 @@ public class ObservableTest {
                 });
 
         errorObservable
-                .onErrorResumeNext(Observable.<String>empty())
+                .onErrorResumeNext(Observable.just("apa"))
                 .subscribe(
                         string -> System.out.println(string),
                         throwable -> System.out.println("Kastade: "
