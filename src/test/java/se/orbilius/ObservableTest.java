@@ -1,5 +1,8 @@
 package se.orbilius;
 
+import com.netflix.hystrix.HystrixCommand;
+import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import org.junit.Test;
 import rx.Observable;
 import rx.Observable.OnSubscribe;
@@ -260,7 +263,7 @@ public class ObservableTest {
         Observable<String> just2 = Observable.just("2");
         just2
                 .doOnCompleted(() -> System.out.println("DONE 2"))
-                        //.doOn
+                //.doOn
                 .toBlocking().single();
 
     }
@@ -297,6 +300,103 @@ public class ObservableTest {
         });
 
     }
+
+    @Test
+    public void enRetryPåEnObservableKörOmDetHela() {
+        System.out.println("börjar");
+        final Observable<String> stringObservable = Observable.create(new OnSubscribe<String>() {
+
+            int i = 0;
+
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                if (i > 0) {
+                    subscriber.onNext("första");
+                    subscriber.onCompleted();
+                } else {
+                    i++;
+                    subscriber.onError(new RuntimeException("fel!"));
+                }
+            }
+        }).retry(1);
+
+        stringObservable.subscribe(str -> System.out.println("klar!"), str -> System.out.println("Fel!"));
+    }
+
+    @Test
+    public void detÄrSkillnadPåToObservableOchObserve() throws InterruptedException {
+
+        class CommandHelloWorld extends HystrixCommand<String> {
+
+            private final String name;
+
+            public CommandHelloWorld(String name) {
+                super(HystrixCommandGroupKey.Factory.asKey("ExampleGroup"));
+                this.name = name;
+            }
+
+            @Override
+            protected String run() {
+                // a real example would do work like a network call here
+                System.out.println("ANROPAR " + name);
+                return "Hello " + name + "!";
+            }
+        }
+
+        //kall observable exekverar 'run' ovan först när man subscribear på den
+        final Observable<String> kallObservable = new CommandHelloWorld("kall ").toObservable();
+
+        //varm observable exekverar 'run' ovan direkt men emittar inget förrän man subscribear
+        final Observable<String> varmObservable = new CommandHelloWorld("varm").observe();
+
+        Thread.sleep(10000);
+
+        kallObservable.subscribe(str -> System.out.println("kall klar!"), str -> System.out.println("Fel!"));
+        varmObservable.subscribe(str -> System.out.println("varm klar!"), str -> System.out.println("Fel!"));
+    }
+
+    @Test
+    public void retryMedHystix() throws InterruptedException {
+
+        class CommandHelloWorld extends HystrixCommand<String> {
+
+            int i = 0;
+            private final String name;
+
+            public CommandHelloWorld(String name) {
+                super(HystrixCommandGroupKey.Factory.asKey("ExampleGroup"));
+                this.name = name;
+            }
+
+            @Override
+            protected String run() {
+                // a real example would do work like a network call here
+                System.out.println("ANROPAR " + name);
+
+                if(i == 0){
+                    i++;
+                    throw new RuntimeException("fel!");
+                }
+                return  name + " klar!";
+            }
+
+            @Override
+            protected String getFallback() {
+                return "fel!";
+
+            }
+        }
+
+        final Observable<String> varmObservable = new CommandHelloWorld("varm")
+                .observe()
+                .retry(1);
+        Thread.sleep(10000);
+        varmObservable.subscribe(System.out::println, System.out::println);
+
+
+
+    }
+
 
     private void printDelayed(int millis, String message) {
 
