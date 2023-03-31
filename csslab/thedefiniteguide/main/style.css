@@ -1,0 +1,22 @@
+
+.defaultInlineSize {
+  background-color: bisque;
+  border-style: solid;
+}
+
+.maxContent {
+  background-color: bisque;
+  border-style: solid;
+  width: max-content;
+}
+
+.autoInlineSize {
+  background-color: bisque;
+  border-style: solid;
+  width: auto;
+}
+.hardcodedWidthInner {
+  background-color: lavenderblush;
+  width: 10px;
+  border-style: dashed;
+}

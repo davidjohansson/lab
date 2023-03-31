@@ -1,0 +1,34 @@
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <link href="style.css" rel="stylesheet">
+  <title>Lab</title>
+
+</head>
+
+<body>
+
+
+<div class="defaultInlineSize">
+ Den här texten är lång men eftersom dess wrappande box inte har ngn max width så tar boxen upp hela ... viewporten? Trodde default auto betydde att den blev som textens storlek
+</div>
+
+<div class="autoInlineSize">
+  &nbsp;-Nope 1: Stämmer att default är auto, men det betyder att boxen tar upp hela vidden av sin parent (i det här fallet body-taggen)
+</div>
+
+<div class="maxContent">
+  &nbsp;-Nope 2: max-content ser till att boxen blir så stor som dess wrappade text (finns varianter)
+</div>
+
+<div class="defaultInlineSize">
+  Den här texten är kort
+</div>
+
+<div class="hardcodedWidthInner">
+  Den är texten får inte plats i boxen, som nu har en hårkodad width
+</div>
+
+
+</body>
+</html>
