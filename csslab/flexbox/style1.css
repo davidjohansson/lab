@@ -1,0 +1,42 @@
+html * {
+  font-size: 16px;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+body, div#parentFlex, div.child1, div.child2 {
+  display: flex;
+}
+
+body {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+div#parentFlex {
+  background-color: cornflowerblue;
+  height: 40px;
+  align-items: center;
+}
+
+div.rounded {
+  border-radius: 5px;
+}
+
+div.child1 {
+  background-color: lightcyan;
+  flex-grow: 1;
+  margin: 2px;
+  width: min-content;
+  justify-content: center;
+}
+
+div.child2 {
+  background-color: lightcyan;
+  flex-grow: 0;
+  width: 50%;
+  margin: 2px;
+  overflow: scroll;
+  justify-content: center;
+}
+

@@ -1,0 +1,64 @@
+html * {
+  font-size: 16px;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.flex {
+  display: flex;
+}
+
+.centered{
+  justify-content: center;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.Fiftypercent {
+  width: 50%;
+}
+
+.zombies {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.zombie {
+  display: flex;
+  background-color: lightcyan;
+  justify-content: center;
+  height: 100px;
+  align-items: center;
+  width: 15%;
+  border: solid;
+  border-color: indianred;
+}
+
+.bigzombie {
+  display: flex;
+  background-color: lightcyan;
+  justify-content: center;
+  height: 100px;
+  align-items: center;
+  border: solid;
+  border-color: indianred;
+}
+
+.oddzombie {
+  display: flex;
+  background-color: lightcyan;
+  justify-content: center;
+  height: 100px;
+  justify-self: flex-en
+  align-items: center;
+  width: 15%;
+  border: solid;
+  border-color: indianred;
+}
