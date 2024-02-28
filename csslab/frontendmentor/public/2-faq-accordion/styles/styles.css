@@ -1,0 +1,86 @@
+body {
+    background-color: hsl(275, 100%, 97%);
+    background-image: url('../assets/images/background-pattern-desktop.svg');
+    background-repeat: repeat-x;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-family: Work Sans;
+    font-style: normal;
+    line-height: normal;
+    padding: 0px 24px 0px 24px;
+}
+
+
+main {
+    max-width: 520px;
+  
+    margin-top: 160px;
+
+    padding: 40px;
+
+    border-radius: 16px;
+    background: var(--White, #FFF);
+    box-shadow: 0px 32px 56px 0px rgba(80, 0, 118, 0.10);
+}
+
+h1 {
+    color: var(--Dark-Purple, #301534);
+    /* Display */
+
+    font-size: 56px;
+    font-weight: 700;
+
+    margin: 0;
+}
+
+
+.over {
+    color: var(--Pale-Purple, #8B6990);
+
+    /* Body */
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+
+ul {
+
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+li {
+    color: var(--Dark-Purple, #301534);
+    /* Title */
+    
+    font-size: 18px;
+    font-weight: 600;
+
+
+}
+
+button {
+    border: none;
+    background-color: #FFF;
+}
+
+.listitem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li:not(:first-child){
+
+    border-top: 1px solid;
+    border-top-color:var(--Light-Pink, #F8EEFF); ;
+    padding-top: 24px;
+}

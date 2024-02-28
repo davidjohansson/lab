@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <meta http-equiv="Content-Security-Policy" content=" object-src 'none'; script-src  'self'; base-uri 'none';"
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link href='https://fonts.googleapis.com/css?family=Work Sans' rel='stylesheet'>
+
+  <link rel="stylesheet" href="./styles/styles.css" />
+  <script defer src="./scripts/scripts.js"></script>
+  <title>Frontend Mentor | FAQ accordion</title>
+</head>
+
+<body>
+
+    <h1><img src="./assets/images/icon-star.svg" alt="Decorative star" />FAQs</h1>
+    <ul>
+      <li>
+        <div class="listitem" ><span>What is Frontend Mentor, and how will it help me?</span>
+          <button id="id1_btn" aria-controls="id1Over" aria-expanded="false" aria-label="Expand help section">
+            <img id="id1_img" src="./assets/images/icon-plus.svg" width="30" height="30" alt="Collapse or expand"/>
+          </button>
+        </div>
+        <p class="over" id="id1Over" aria-hidden="true">
+          Frontend Mentor offers realistic coding challenges to help developers improve their
+          frontend coding skills with projects in HTML, CSS, and JavaScript. It's suitable for
+          all levels and ideal for portfolio building.
+        </p>
+      </li>
+
+      <li>
+        <div class="listitem" ><span>Is Frontend Mentor free?</span>
+          <button id="id2_btn" aria-controls="id2Over" aria-expanded="false" aria-label="Expand free section">
+            <img id="id2_img" src="./assets/images/icon-plus.svg" width="30" height="30" alt="Collapse or expand"/>
+          </button>
+        </div>
+        <p class="over" id="id2Over">
+          Yes, Frontend Mentor offers both free and premium coding challenges, with the free
+          option providing access to a range of projects suitable for all skill levels.
+        </p>
+      </li>
+      <li>
+        <div class="listitem" ><span>Can I use Frontend Mentor projects in my portfolio</span>
+          <button id="id3_btn" aria-controls="id3Over" aria-expanded="false" aria-label="Expand portfolio section">
+            <img id="id3_img" src="./assets/images/icon-plus.svg" width="30" height="30" alt="Collapse or expand"/>
+          </button>
+          </div>
+        <p class="over" id="id3Over">
+          Yes, you can use projects completed on Frontend Mentor in your portfolio. It's an excellent
+          way to showcase your skills to potential employers!
+        </p>
+      </li>
+      <li>
+        <div class="listitem" ><span>How can I get help if I'm stuck on a challenge?</span>
+          <button id="id4_btn" aria-controls="id4Over" aria-expanded="false" aria-label="Expand help section">
+            <img id="id4_img" src="./assets/images/icon-plus.svg" width="30" height="30" alt="Collapse or expand"/>
+          </button>
+          </div>
+        <p class="over" id="id4Over">
+          The best place to get help is inside Frontend Mentor's Discord community. There's a help
+          channel where you can ask questions and seek support from other community members.
+        </p>
+      </li>
+    </ul </main>
+</body>
+
+</html>

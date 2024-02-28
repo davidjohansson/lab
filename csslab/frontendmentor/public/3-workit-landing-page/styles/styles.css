@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+
+h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    font-family: "Fraunces", serif;
+    font-optical-sizing: auto;
+    font-weight: 550;
+    font-size: 80px;
+    font-style: normal;
+    font-variation-settings:
+    "SOFT" 0,
+    "WONK" 0;
+}
+
+main {
+    margin-left: 
+}
+
+
+
