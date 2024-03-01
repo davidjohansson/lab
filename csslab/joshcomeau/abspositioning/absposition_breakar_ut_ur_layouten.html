@@ -1,0 +1,42 @@
+<!--
+    Browsern kommer att underställa ett abs positionerat element någon annan layoutalgoritm, varken flow, flex eller ngn annan.
+    I princip har man sagt "lägg dig inte i det här, jag bestämmer var den här skall vara.
+    Andra algoritmer kommer också att se ytan abs pos elementet upptar som tomt.
+
+-->
+<html>
+    <head>
+    <style>
+        .flex {
+            display: flex;
+            flex-direction: column;
+            justify-self: center;
+            align-items: center;
+        }
+        .fi {
+            background-color: aqua;
+            margin-top: 10px;
+        }
+
+        .pink.box {
+          position: absolute;
+          top: 30px;
+          left: 50%;
+          width: 75px;
+          height: 75px;
+          background: deeppink;
+        }
+      </style>
+    </head>
+
+   <div class="flex" >
+    <div class="fi">
+       osten 
+    </div>
+    <div class="pink box"></div>
+    <div class="fi">
+       levereras 
+    </div>
+
+   </div>
+</html>
