@@ -1,0 +1,62 @@
+<!--
+  Ett absolutposintionerat element placeras relativt sitt contaiting block. 
+  Containing block för ett APE är närmsta element som själv är positionerat
+  Josh Comeau liknar ett APE vid en rebellisk tonåring som inte lyder sin förälder, förutsatt att den inte själv är positionerad
+-->
+<html>
+<head>
+  <style>
+    main {
+      
+      border: solid;
+      border-width: 10px;
+    }
+    .flex {
+      display: flex;
+      flex-direction: column;
+      justify-self: center;
+      align-items: center;
+    }
+    .uncool_unpositioned_parent {
+      background-color: aqua;
+      margin-top: 10px;
+      width:200px;
+      height: 200px;
+    }
+    
+    .cool_positioned_parent {
+      background-color: aqua;
+      margin-top: 10px;
+      width:200px;
+      height: 200px;
+
+     /*här!*/
+      position: relative;
+    }
+    .rebellious_teenager {
+      position: absolute;
+      top: 0px;
+      left: 10%;
+      width: 75px;
+      height: 75px;
+      background: deeppink;
+    }
+  </style>
+</head>
+<body>
+
+<main>
+
+  <div class="flex" >
+  <div class="uncool_unpositioned_parent">
+    <div class="rebellious_teenager"></div>
+  </div>
+  
+  <div class="cool_positioned_parent">
+    <div class="rebellious_teenager"></div>
+  </div>
+</div>
+
+</main>
+</body>
+</html>
