@@ -1,0 +1,72 @@
+{
+    "persons": [
+        {
+            "id": 1,
+            "firstName": "Lars",
+            "lastName": "Olsson",
+            "addressId": 1
+        },
+        {
+            "id": 2,
+            "firstName": "Anna",
+            "lastName": "Svensson",
+            "addressId": 2
+        },
+        {
+            "id": 3,
+            "firstName": "Erik",
+            "lastName": "Johansson",
+            "addressId": 3
+        },
+        {
+            "id": 4,
+            "firstName": "Maria",
+            "lastName": "Nilsson",
+            "addressId": 4
+        },
+        {
+            "id": 5,
+            "firstName": "Karl",
+            "lastName": "Andersson",
+            "addressId": 5
+        },
+        
+        {
+            "id": 6,
+            "firstName": "Jonas",
+            "lastName": "Hemlösson"
+        }
+    ],
+    "addresses": [
+        {
+            "id": 1,
+            "street": "Gatan 1",
+            "city": "Staden",
+            "addressId": 1
+        },
+        {
+            "id": 2,
+            "street": "Vägen 2",
+            "city": "Byen",
+            "addressId": 2
+        },
+        {
+            "id": 3,
+            "street": "Allén 3",
+            "city": "Tätorten",
+            "addressId": 3
+        },
+        {
+            "id": 4,
+            "street": "Stigen 4",
+            "city": "Samhället",
+            "addressId": 4
+        },
+        {
+            "id": 5,
+            "street": "Gränden 5",
+            "city": "Metropolen",
+            "addressId": 5
+        }
+    ]
+}

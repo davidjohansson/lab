@@ -1,23 +1,124 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
 
+body {
+  /* width: 1440px; */
+  margin: 0px;
+}
+
 h1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    font-family: "Fraunces", serif;
-    font-optical-sizing: auto;
-    font-weight: 550;
-    font-size: 80px;
-    font-style: normal;
-    font-variation-settings:
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: "Fraunces", serif;
+  font-optical-sizing: auto;
+  font-weight: 550;
+  font-size: 80px;
+  font-style: normal;
+  color: white;
+  font-variation-settings:
     "SOFT" 0,
     "WONK" 0;
+
+  /* max-width: 8em; */
+  height: 600px;
 }
+
+.largecircle {
+ position: absolute;
+  /*width: 50px;*/
+  /*height: 50px;*/
+  width: 300vw;
+  height: 300vw;
+  border-radius: 50%;
+  background-color: green;
+  left: -100%;
+  top: -280%;
+  z-index: -1;
+}
+
+.topbg {
+  margin-top: 0px;
+  background-color: #24053E;
+  /* border-radius: 100 em / 200 em; */
+  /*border-bottom-right-radius: 50vw;*/
+  /*border-bottom-left-radius: 50vw;*/
+  border-bottom: solid;
+  border-color: #24053E;
+}
+
+.la
+h1>div {
+  max-width: 6.5em;
+}
+
+h1>div>span {
+  border: none;
+  border-bottom: solid;
+  border-color: #44FFA1;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -350px;
+}
+
+.hero>img {
+  width: 767px;
+  height: 454px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 55px;
+}
+
+.btnv1 {
+  color: #24053E;
+  background-color: #44FFA1;
+  border: solid;
+  padding: 10px;
+  border-color: #44FFA1;
+}
+
+.btnv1:hover {
+  color: white;
+  background-color: inherit;
+  border: solid;
+  padding: 10px;
+  border-color: #44FFA1;
+}
+
+.btnv2 {
+  color: white;
+  background-color: inherit;
+  border: none;
+  border-bottom: solid;
+  border-color: #44FFA1;
+}
+
+.btnv2:hover {
+  color: #44FFA1;
+}
+
+
+.bg-pattern-1 {
+  position: absolute;
+  top: 146px;
+  left: -150px;
+}
+
+
+.bg-pattern-2 {
+  position: absolute;
+  top: 300px;
+  right: -50px;
+}
+
 
 main {
-    margin-left: 
+  margin-left:
 }
-
-
-

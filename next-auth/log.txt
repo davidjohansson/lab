@@ -1,0 +1,30 @@
+## keycloak
+-starta med ./bin/kc.sh start-dev
+-admin finns pa http://localhost:8080
+-admin: admin, admin
+-user: labuser, labuser
+
+log:
+-skapat adminkonto, login admin, password admin
+-skapat realm labrealm
+-skapat user labuser, password labuser
+-loggat in pa http://localhost:8080/realms/labrealm/account
+
+## app
+next.js med page-router, eftersom det verkar krangligt att satta
+upp med app-router
+
+log:
+
+todo:
+-just nu sparas inga sessioner, sa tokenet aker ner i browsern.
+satt upp session storage.
+
+
+## nginx
+conf i nginx, starta med docker compose.
+
+log
+-satt upp /etc/hosts och nginx for att ha siten pa `oidc.lab`
+
+ 
