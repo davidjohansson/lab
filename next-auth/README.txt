@@ -1,4 +1,9 @@
-Projekt for att labba med next-auth, keycloak och oidc in general
+Projekt for att labba med next-auth, keycloak och oidc i allmanhet
+
+
+Wiresharkfilter for trafiken mot keycloak:
+`http and (tcp.srcport ==8080 or tcp.dstport==8080)`
+
 ## keycloak
 -starta med ./bin/kc.sh start-dev
 -admin finns pa http://localhost:8080
@@ -13,13 +18,14 @@ log:
 
 ## app
 next.js med page-router, eftersom det verkar krangligt att satta
-upp med app-router
+upp med app-router.
 
 log:
+-skapat tabeller i postgres lab:db (startar den med docker-compose up i ../rkb)
+-fatt persistering av sessioner och accounts att fungera
 
 todo:
--just nu sparas inga sessioner, sa tokenet aker ner i browsern.
-satt upp session storage.
+-flytta databas med authinfo hit fran rkb, starta med samma docker-compose som startar nginx
 
 
 ## nginx
